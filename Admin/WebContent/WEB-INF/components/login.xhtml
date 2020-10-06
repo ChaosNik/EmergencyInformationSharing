@@ -1,0 +1,23 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head />
+<ui:composition>
+	<div class="center-in-page">
+		<h:form id="login-form">
+			<p:panelGrid columns="2">
+				<p:outputLabel for="username" value="Korisnicko ime "></p:outputLabel>
+				<p:inputText id="username" value="#{userBean.user.username}" required="true" ></p:inputText>
+
+				<p:outputLabel for="password" value="Lozinka "></p:outputLabel>
+				<p:password id="password" value="#{userBean.user.password}" required="true" />
+			</p:panelGrid>
+			<br />
+			<p:commandButton id="login-btn" value="Prijavi se" action="#{userBean.login}" update="output"></p:commandButton>
+			<h:outputText id="output" value="#{userBean.errorMsg}" />
+		</h:form>
+	</div>
+</ui:composition>
+</html>

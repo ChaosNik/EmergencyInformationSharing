@@ -1,0 +1,66 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+ <h:head>
+   	<h:outputStylesheet library="css" name="table-style.css"  />
+</h:head>
+<h:body>
+    	<h:form>
+    		<p:dataTable value="#{postBean.posts}" var="post"
+    			styleClass="order-table"
+    			headerClass="order-table-header"
+    			rowClasses="order-table-odd-row,order-table-even-row"
+    		>
+
+    		<p:column rendered="false"> 			
+    			<f:facet  name="header">Id</f:facet>
+    			#{post.id}
+    		</p:column>
+    		
+    		<p:column>
+    			<f:facet name="header">Slika</f:facet>
+    		
+    					<h:graphicImage value="#{post.image}" style="max-width: 100px; max-height: 100px;" /> 				
+    		</p:column>
+    		
+    		<p:column>
+    			<f:facet name="header">Naziv</f:facet>
+    			#{post.name}
+    		</p:column>
+    		
+    		<p:column>
+    			<f:facet name="header">Lokacija</f:facet>
+    			#{post.location}
+    		</p:column>
+    	
+    		<p:column>
+    			<f:facet name="header">Opis</f:facet>
+    			#{post.description}
+    		</p:column>
+    		
+    		<p:column>
+    			<f:facet name="header">Kategorija</f:facet>
+    			#{post.category}
+    		</p:column>
+    		
+    		<p:column>    			
+    		<f:facet name="header">Kreiran</f:facet>
+    					#{post.time}
+    		</p:column>
+
+    		  	
+   		  	<p:column>	
+   			<f:facet name="header"></f:facet>
+   				
+   			<h:commandLink value="Ukloni" action="#{postBean.deletePost(post.id)}" />
+    				
+    		</p:column>
+    		
+    		</p:dataTable>
+    		
+    	</h:form>
+    </h:body>
+</html>

@@ -1,0 +1,104 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+ <h:head>
+    	<h:outputStylesheet library="css" name="table-style.css"  />
+    </h:head>
+    <h:body>	
+	    <h3>Prijavljenih korisnika: #{userBean.numberOfActiveUsers}, Registrovanih korisnika: #{userBean.numberOfRegisteredUsers}</h3>
+    	<h:form>
+    		<p:dataTable id="dtUsers" value="#{userBean.users}" var="o"
+    			styleClass="order-table"
+    			headerClass="order-table-header"
+    			rowClasses="order-table-odd-row,order-table-even-row"
+    		>
+
+    		<p:column rendered="false" >
+    			
+    			<f:facet name="header">Id</f:facet>
+    			#{o.id}
+    				
+    		</p:column>
+    		<p:column>
+    			
+    			<f:facet name="header">Avatar</f:facet>
+    			<h:graphicImage value="#{o.photo}" style="max-width: 100px; max-height: 100px;" /> 				
+    		</p:column>
+    		<p:column>
+    			
+    			<f:facet name="header">Ime</f:facet>
+    			#{o.firstName}
+    				
+    		</p:column>
+    		<p:column>
+    			
+    			<f:facet name="header">Prezime</f:facet>
+    			#{o.lastName}
+    				
+    		</p:column>
+    		 
+    		 <p:column>
+    			
+    			<f:facet name="header">Država</f:facet>
+    			#{o.country}
+    		</p:column>
+    		    		<p:column>
+    			<f:facet name="header">Region</f:facet>
+    			#{o.region}
+    		</p:column>
+    				<p:column>
+    			<f:facet name="header">Grad</f:facet>
+    			#{o.city}	
+    		</p:column>
+    			<p:column>
+    			<f:facet name="header">Broj prijava</f:facet>
+    			#{o.numberOfLogins}
+    		</p:column>
+    				<p:column>
+    			<f:facet name="header">Na mail</f:facet>
+    			#{o.notificationOnMail == 1 ? "DA" : "NE"}
+    		</p:column>
+    				<p:column>
+    			<f:facet name="header">U app</f:facet>
+    			#{o.notificationInApp == 1 ? "DA" : "NE"}	
+    		</p:column>
+    		<p:column headerClass="col3">
+    	<f:facet name="header"> Odobri</f:facet>
+			<p:commandLink update="dtUsers"  rendered="#{o.active == 0}">
+			<f:ajax 
+    		event="click" 
+        render="dtUsers" 
+        execute="@form"
+        listener="#{userBean.approveUser(o.id)}" />Prihvati</p:commandLink>
+    		<h:outputText value="&lt;br/&gt;" escape="false" />
+    		<h:outputText value="&lt;br/&gt;" escape="false" />
+    		<p:commandLink  rendered="#{o.active == 0}" value="Odbaci">
+    		<f:ajax 
+    		event="click" 
+        render="dtUsers" 
+        execute="@form"
+        listener="#{userBean.rejectUser(o.id)}" />
+  		 </p:commandLink>
+    		</p:column>
+    		<p:column>
+    		<f:facet name="header">Blokiraj</f:facet>
+    		<h:commandButton value="Blokiraj" rendered="#{o.active == 1}"> 
+    		<f:ajax 
+    		event="click" 
+        render="dtUsers" 
+        execute="@form"
+        listener="#{userBean.blockUser(o.id)}" />
+         	</h:commandButton>
+    			<p:commandLink />
+    		</p:column>
+			    		<p:column>
+    			<f:facet name="header">Lozinka</f:facet>
+    			<h:commandLink value="Resetuj" action="#{userBean.resetPassword(o.id)}" />
+    		</p:column>
+    		</p:dataTable>
+    	</h:form>
+    </h:body>
+</html>

@@ -1,0 +1,55 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+ <h:head>
+    	<h:outputStylesheet library="css" name="table-style.css"  />
+    </h:head>
+    <h:body>
+    	<h:form>
+    		<p:dataTable value="#{categoryBean.categories}" var="category"
+    			styleClass="order-table"
+    			headerClass="order-table-header"
+    			rowClasses="order-table-odd-row,order-table-even-row"
+    		>
+
+    			<p:column rendered="false">
+    			
+    			<f:facet name="header">Id</f:facet>
+    			#{category.id}
+    				
+    		</p:column>
+    
+    
+    		<p:column>
+    			
+    			<f:facet name="header">Naziv</f:facet>
+    			#{category.name}
+    				
+    		</p:column>
+    		 
+			<p:column>
+    				
+    			<f:facet name="header">Briši</f:facet>
+    	 	<h:commandLink value="Ukloni" action="#{categoryBean.deleteCategory(category.id)}" />
+    				
+    		</p:column>
+
+    		</p:dataTable>
+    		
+    		 <table>
+            <tr>
+               <td><h:inputText size = "15" value="#{categoryBean.name}"/>
+               <h:outputText id="output" value="#{categoryBean.errorMsg}" />
+               </td>
+               <td> </td>
+               <td><h:commandButton value="Dodaj" action="#{categoryBean.addCategory}">
+               		 <f:ajax execute="@form" render="@form" />
+               		</h:commandButton></td>
+            </tr>
+         </table>	  
+    	</h:form>
+    </h:body>
+</html>
